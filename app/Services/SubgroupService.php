@@ -3,18 +3,18 @@
 namespace App\Services;
 
 use App\Exceptions\Message;
-use App\Models\Group;
-use App\Repositories\GroupRepository\GroupRepository;
+use App\Models\Subgroup;
+use App\Repositories\SubgroupRepository\SubgroupRepository;
 use Illuminate\Http\Request;
 
-class GroupService
+class SubgroupService
 {
 
-    protected $groupRepository;
+    protected $subgroupRepository;
 
     public function __construct()
     {
-        $this->groupRepository = (new GroupRepository(new Group()));
+        $this->subgroupRepository = (new SubgroupRepository(new Subgroup()));
     }
 
 
@@ -25,7 +25,7 @@ class GroupService
      */
     public function getAll()
     {
-        $result = $this->groupRepository->get();
+        $result = $this->subgroupRepository->get();
 
         if(is_null($result) || $result->count() == 0) {
             throw new \Exception(Message::MSG_NENHUM_REGISTRO_ENCONTRADO);
@@ -37,8 +37,9 @@ class GroupService
     public function create(Request $request)
     {
         $data['descricao'] = $request->descricao;
+        $data['group_id'] = $request->group_id;
 
-        $result = $this->groupRepository->create($data);
+        $result = $this->subgroupRepository->create($data);
 
         if(!$result->id) {
             throw new \Exception(Message::MSG_ALGO_ERRADO);
@@ -52,7 +53,7 @@ class GroupService
             throw new \Exception(Message::MSG_ALGO_ERRADO);
         }
 
-        $result =  $this->groupRepository->find($id);
+        $result =  $this->subgroupRepository->find($id);
 
         if(is_null($result) || $result->count() == 0) {
             throw new \Exception(Message::MSG_NENHUM_REGISTRO_ENCONTRADO);
@@ -65,7 +66,7 @@ class GroupService
 
         $data['descricao'] = $request->descricao;
 
-        $result = $this->groupRepository->update($data, $id);
+        $result = $this->subgroupRepository->update($data, $id);
 
         if(!$result) {
             throw new \Exception(Message::MSG_ALGO_ERRADO);
@@ -80,7 +81,7 @@ class GroupService
             throw new \Exception(Message::MSG_ALGO_ERRADO);
         }
 
-        $result = $this->groupRepository->delete($id);
+        $result = $this->subgroupRepository->delete($id);
 
         return $result;
 
