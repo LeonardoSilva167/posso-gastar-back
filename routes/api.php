@@ -1,6 +1,7 @@
 <?php
 
 use App\Exceptions\Message;
+use App\Http\Controllers\v1\BoxCompositionController;
 use App\Http\Controllers\v1\BoxController;
 use App\Http\Controllers\v1\GroupController;
 use App\Http\Controllers\v1\SubgroupController;
@@ -47,6 +48,15 @@ Route::prefix('v1')->group(function() {
 
     //Box
     Route::prefix('box')->controller(BoxController::class)->group(function() {
+        Route::get('/','index');
+        Route::post('/new','store');
+        Route::get('{id}','show');
+        Route::put('edit/{id}','update');
+        Route::delete('delete/{id}','destroy');
+    });
+
+    //Box Composition
+    Route::prefix('box-composition')->controller(BoxCompositionController::class)->group(function() {
         Route::get('/','index');
         Route::post('/new','store');
         Route::get('{id}','show');
