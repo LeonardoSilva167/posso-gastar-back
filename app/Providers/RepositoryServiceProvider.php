@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\BoxRepository\BoxRepository;
+use App\Repositories\BoxRepository\BoxRepositoryInterface;
 use App\Repositories\GroupRepository\GroupRepository;
 use App\Repositories\GroupRepository\GroupRepositoryInterface;
 use App\Repositories\SubgroupRepository\SubgroupRepository;
@@ -19,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind( GroupRepository::class,GroupRepositoryInterface::class);
         $this->app->bind( SubgroupRepository::class,SubgroupRepositoryInterface::class);
+        $this->app->bind( BoxRepository::class,BoxRepositoryInterface::class);
 
     }
 

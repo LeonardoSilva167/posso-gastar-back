@@ -1,6 +1,7 @@
 <?php
 
 use App\Exceptions\Message;
+use App\Http\Controllers\v1\BoxController;
 use App\Http\Controllers\v1\GroupController;
 use App\Http\Controllers\v1\SubgroupController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,15 @@ Route::prefix('v1')->group(function() {
 
     //Subgroup
     Route::prefix('subgroup')->controller(SubgroupController::class)->group(function() {
+        Route::get('/','index');
+        Route::post('/new','store');
+        Route::get('{id}','show');
+        Route::put('edit/{id}','update');
+        Route::delete('delete/{id}','destroy');
+    });
+
+    //Box
+    Route::prefix('box')->controller(BoxController::class)->group(function() {
         Route::get('/','index');
         Route::post('/new','store');
         Route::get('{id}','show');

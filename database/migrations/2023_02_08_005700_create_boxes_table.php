@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubgroupsTable extends Migration
+class CreateBoxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateSubgroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subgroups', function (Blueprint $table) {
+        Schema::create('boxes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('subgroup_id');
             $table->string('name', 50)->nullable(false);
-            $table->unsignedBigInteger('group_id');
+            $table->enum('interval',['1','2','3','4','6','12']);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->foreign('subgroup_id')->references('id')->on('subgroups')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateSubgroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subgroups');
+        Schema::dropIfExists('boxes');
     }
 }

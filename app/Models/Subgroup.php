@@ -16,7 +16,7 @@ class Subgroup extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'descricao',
+        'name',
         'group_id',
     ];
 }

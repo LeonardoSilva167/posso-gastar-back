@@ -36,7 +36,7 @@ class GroupService
 
     public function create(Request $request)
     {
-        $data['descricao'] = $request->descricao;
+        $data['name'] = $request->name;
 
         $result = $this->groupRepository->create($data);
 
@@ -63,7 +63,7 @@ class GroupService
 
     public function update(Request $request, $id){
 
-        $data['descricao'] = $request->descricao;
+        $data['name'] = $request->name;
 
         $result = $this->groupRepository->update($data, $id);
 

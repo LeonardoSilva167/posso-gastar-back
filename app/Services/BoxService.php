@@ -3,18 +3,18 @@
 namespace App\Services;
 
 use App\Exceptions\Message;
-use App\Models\Subgroup;
-use App\Repositories\SubgroupRepository\SubgroupRepository;
+use App\Models\Box;
+use App\Repositories\BoxRepository\BoxRepository;
 use Illuminate\Http\Request;
 
-class SubgroupService
+class BoxService
 {
 
-    protected $subgroupRepository;
+    protected $groupRepository;
 
     public function __construct()
     {
-        $this->subgroupRepository = (new SubgroupRepository(new Subgroup()));
+        $this->groupRepository = (new BoxRepository(new Box()));
     }
 
 
@@ -25,7 +25,7 @@ class SubgroupService
      */
     public function getAll()
     {
-        $result = $this->subgroupRepository->get();
+        $result = $this->groupRepository->get();
 
         if(is_null($result) || $result->count() == 0) {
             throw new \Exception(Message::MSG_NENHUM_REGISTRO_ENCONTRADO);
@@ -37,9 +37,10 @@ class SubgroupService
     public function create(Request $request)
     {
         $data['name'] = $request->name;
-        $data['group_id'] = $request->group_id;
+        $data['interval'] = $request->interval;
+        $data['subgroup_id'] = $request->subgroup_id;
 
-        $result = $this->subgroupRepository->create($data);
+        $result = $this->groupRepository->create($data);
 
         if(!$result->id) {
             throw new \Exception(Message::MSG_ALGO_ERRADO);
@@ -53,7 +54,7 @@ class SubgroupService
             throw new \Exception(Message::MSG_ALGO_ERRADO);
         }
 
-        $result =  $this->subgroupRepository->find($id);
+        $result =  $this->groupRepository->find($id);
 
         if(is_null($result) || $result->count() == 0) {
             throw new \Exception(Message::MSG_NENHUM_REGISTRO_ENCONTRADO);
@@ -65,8 +66,10 @@ class SubgroupService
     public function update(Request $request, $id){
 
         $data['name'] = $request->name;
+        $data['interval'] = $request->interval;
+        // $data['subgroup_id'] = $request->subgroup_id;
 
-        $result = $this->subgroupRepository->update($data, $id);
+        $result = $this->groupRepository->update($data, $id);
 
         if(!$result) {
             throw new \Exception(Message::MSG_ALGO_ERRADO);
@@ -81,7 +84,7 @@ class SubgroupService
             throw new \Exception(Message::MSG_ALGO_ERRADO);
         }
 
-        $result = $this->subgroupRepository->delete($id);
+        $result = $this->groupRepository->delete($id);
 
         return $result;
 
